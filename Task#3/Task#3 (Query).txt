@@ -1,0 +1,13 @@
+SELECT 
+
+user.`name`, UPPER(language.`language_code`) AS language_code,
+`user_experience_translation`.`user_experience_id`, 
+`user_experience_translation`.`job_title`,
+`user_experience_translation`.`job_description`
+
+FROM `user`
+INNER JOIN `user_experience` ON `user`.`id` = `user_experience`.`user_id`
+INNER JOIN `user_experience_translation` ON `user_experience_translation`.`user_experience_id` = `user_experience`.`id`
+INNER JOIN `language` ON `language`.id = `user_experience_translation`.`language_id`
+
+WHERE user.id = 1
