@@ -1,13 +1,13 @@
 SELECT 
-
-user.`name`, UPPER(language.`language_code`) AS language_code,
-`user_experience_translation`.`user_experience_id`, 
-`user_experience_translation`.`job_title`,
-`user_experience_translation`.`job_description`
+UPPER(language.language_code) AS `Language`,
+user.name,user.birth_date,user.ssn,user.email,user.phone,user.address,user.is_current_employee, 
+user_experience_translation.user_experience_id, user_experience_translation.work_at,user_experience_translation.job_title,user_experience_translation.job_description,user_experience.start_date AS work_start_date,user_experience.end_date AS work_end_date,
+user_education.degree,user_education.institute,user_education.start_date AS gaduation_start_date,user_education.end_date AS gaduation_end_date
 
 FROM `user`
 INNER JOIN `user_experience` ON `user`.`id` = `user_experience`.`user_id`
 INNER JOIN `user_experience_translation` ON `user_experience_translation`.`user_experience_id` = `user_experience`.`id`
 INNER JOIN `language` ON `language`.id = `user_experience_translation`.`language_id`
+INNER JOIN `user_education`  ON `user`.`id` = `user_education`.`user_id` AND `language`.`id` = user_education.`language_id`
 
 WHERE user.id = 1

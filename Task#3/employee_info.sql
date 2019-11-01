@@ -2,8 +2,7 @@
 SQLyog Ultimate v11.11 (64 bit)
 MySQL - 5.5.5-10.1.36-MariaDB : Database - employee_info
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -34,7 +33,7 @@ CREATE TABLE `activity_log` (
 
 /*Data for the table `activity_log` */
 
-insert  into `activity_log`(`id`,`user_id`,`description`,`created_at`,`updated_at`) values (1,1,'Jon Stephens added work experience details.','2019-10-30 22:20:42',NULL);
+insert  into `activity_log`(`id`,`user_id`,`description`,`created_at`,`updated_at`) values (1,1,'Jon Stephens added work experience details.','2019-10-30 22:20:32',NULL),(2,1,'Jon Stephens added education details.','2019-10-30 22:25:42',NULL);
 
 /*Table structure for table `language` */
 
@@ -71,6 +70,32 @@ CREATE TABLE `user` (
 /*Data for the table `user` */
 
 insert  into `user`(`id`,`name`,`birth_date`,`ssn`,`email`,`phone`,`address`,`is_current_employee`,`created_at`,`updated_at`) values (1,'Jon Stephens','1995-03-15','521-99-6747','john@mail.com','6172235589','23 Workhaven Lane',1,'2019-10-30 22:14:33',NULL);
+
+/*Table structure for table `user_education` */
+
+DROP TABLE IF EXISTS `user_education`;
+
+CREATE TABLE `user_education` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned DEFAULT NULL,
+  `language_id` int(11) unsigned DEFAULT NULL,
+  `parent_id` int(10) unsigned DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `degree` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `institute` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `language_id` (`language_id`),
+  CONSTRAINT `user_education_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `user_education_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user_education` */
+
+insert  into `user_education`(`id`,`user_id`,`language_id`,`parent_id`,`start_date`,`end_date`,`degree`,`institute`,`created_at`,`updated_at`) values (1,1,1,0,'2012-01-01','2016-12-31','Bachelor','California State University','2019-10-30 21:42:49',NULL),(2,1,3,1,'2012-01-01','2016-12-31','Soltero','Universidad Estatal de California','2019-11-01 07:58:50',NULL),(3,1,2,1,'2012-01-01','2016-12-31','Bachelier','Université d\'État de Californie','2019-11-01 08:00:30',NULL);
 
 /*Table structure for table `user_experience` */
 
